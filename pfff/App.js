@@ -8,12 +8,11 @@ const DartScorekeeper = () => {
     let [numberShots, setNumberShots] = useState(0);
     const [throws1, setThrows1] = useState([]);
     const [throws2, setThrows2] = useState([]);
-    let player1Name = "Mathieu";
-    let player2Name = "Maxime";
-    let [actualPlayer, setActualPlayer] = useState(1);
+    let players = ["Mathieu", "Maxime"];
+    let [actualPlayer, setActualPlayer] = useState(0);
 
     const updateScore = (shot) => {
-        if (actualPlayer === 1) {
+        if (actualPlayer === 0) {
             setScore1(score1 - shot);
             setThrows1([...throws1, shot]);
         }
@@ -62,10 +61,10 @@ const DartScorekeeper = () => {
     const changePlayer = () => {
         if(numberShots === 2){
             setNumberShots(0);
-            if(actualPlayer=== 1){
-                setActualPlayer(2);
-            }else{
+            if(actualPlayer=== 0){
                 setActualPlayer(1);
+            }else{
+                setActualPlayer(0);
             }
         }
     }
@@ -75,25 +74,25 @@ const DartScorekeeper = () => {
         setThrows1([]);
         setThrows2([]);
         setNumberShots(0);
-        setActualPlayer(1);
+        setActualPlayer(0);
     }
 
     return (
         <View style={styles.container}>
             <View style={styles.playerContainer}>
             <View style={styles.playerContainer1}>
-                <Text style={styles.text}>{player1Name}</Text>
+                <Text style={styles.text}>{players[0]}</Text>
                 <Text style={styles.score}>{score1}</Text>
                 <Text style={styles.arrayThrows}>{throws1.join(', ')}</Text>
             </View>
             <View style={styles.playerContainer2}>
-                <Text style={styles.text}>{player2Name}</Text>
+                <Text style={styles.text}>{players[1]}</Text>
                 <Text style={styles.score}>{score2}</Text>
                 <Text style={styles.arrayThrows}>{throws2.join(', ')}</Text>
             </View>
             </View>
             <Text>C'est au tour du Joueur :</Text>
-            <Text style={styles.text}>{actualPlayer}</Text>
+            <Text style={styles.text}>{players[actualPlayer]}</Text>
 
             <View style={styles.buttonContainer}>
 
