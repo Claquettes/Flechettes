@@ -31,24 +31,31 @@ const DartScorekeeper = () => {
         [  
           {  
               text: 'x1',  
-              onPress: () => {updateTurn(points)},  
+              onPress: () => {updateTurn(points, 1)},  
           }, 
           {  
             text: 'x2',  
-            onPress: () => {updateTurn(points * 2)},  
+            onPress: () => {updateTurn(points, 2)},  
           },  
           {  
             text: 'x3',  
-            onPress: () => {updateTurn(points * 3)},  
+            onPress: () => {updateTurn(points, 3)},  
           },   
           ]  
       );  
     }
 
-    const updateTurn = (scoreThisTurn) => {
-      shotCounter();
-      updateScore(scoreThisTurn);
-      changePlayer();
+    const updateTurn = (points, multiplier) => {
+        let thisScore 
+        if(points != 25 && points != 50){
+            thisScore = points * multiplier;
+        }
+        else {
+            thisScore = points;
+        }
+        shotCounter();
+        updateScore(thisScore);
+        changePlayer();
 
     }
     const shotCounter = () => {
