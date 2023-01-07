@@ -21,6 +21,7 @@ const DartScorekeeper = () => {
             setThrows2([...throws2, shot]);
         }
     }
+
     const addThrow = (points) => {
         if (points != 0 && points != 25 && points != 50) {
             Alert.alert(  
@@ -55,6 +56,7 @@ const DartScorekeeper = () => {
         changePlayer();
 
     }
+
     const shotCounter = () => {
         setNumberShots(numberShots + 1);
     }
@@ -92,7 +94,7 @@ const DartScorekeeper = () => {
             </View>
             </View>
             <Text>C'est au tour du Joueur :</Text>
-            <Text style={styles.text}>{players[actualPlayer]}</Text>
+            <Text style={[styles.text, styles.marginBottom]}>{players[actualPlayer]}</Text>
 
             <View style={styles.buttonContainer}>
 
@@ -184,7 +186,6 @@ const styles = StyleSheet.create({
         width: '70%',
         marginBottom: 30,
     },
-
     container: {
         flex: 1,
         alignItems: 'center',
@@ -196,7 +197,9 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
     },
-
+    marginBottom: {
+        marginBottom: 30,
+    },
     score: {
         color: 'white',
         fontSize: 20,
