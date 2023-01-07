@@ -86,12 +86,12 @@ const DartScorekeeper = () => {
             <View style={styles.playerContainer1}>
                 <Text style={styles.text}>{player1Name}</Text>
                 <Text style={styles.score}>{score1}</Text>
-                <Text style={styles.text}>Throws: {throws1.join(', ')}</Text>
+                <Text style={styles.arrayThrows}>{throws1.join(', ')}</Text>
             </View>
             <View style={styles.playerContainer2}>
                 <Text style={styles.text}>{player2Name}</Text>
                 <Text style={styles.score}>{score2}</Text>
-                <Text style={styles.text}>Throws: {throws2.join(', ')}</Text>
+                <Text style={styles.arrayThrows}>{throws2.join(', ')}</Text>
             </View>
             </View>
             <Text>C'est au tour du Joueur :</Text>
@@ -192,10 +192,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    arrayThrows: {
+        fontSize: 10,
+    },
     text: {
         fontSize: 20,
-
     },
+
     score: {
         color: 'white',
         fontSize: 20,
