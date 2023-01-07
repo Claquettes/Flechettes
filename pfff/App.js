@@ -12,8 +12,6 @@ const DartScorekeeper = () => {
     let player2Name = "Maxime";
     let [actualPlayer, setActualPlayer] = useState(1);
 
-
-
     const updateScore = (shot) => {
         if (actualPlayer === 1) {
             setScore1(score1 - shot);
@@ -25,34 +23,34 @@ const DartScorekeeper = () => {
         }
     }
     const addThrow = (points) => {
-      Alert.alert(  
-        'Select multiplier',  
-        '',  
-        [  
-          {  
-              text: 'x1',  
-              onPress: () => {updateTurn(points, 1)},  
-          }, 
-          {  
-            text: 'x2',  
-            onPress: () => {updateTurn(points, 2)},  
-          },  
-          {  
-            text: 'x3',  
-            onPress: () => {updateTurn(points, 3)},  
-          },   
-          ]  
-      );  
+        if (points != 0 && points != 25 && points != 50) {
+            Alert.alert(  
+                points.toString(),  
+                'Select multiplier',  
+                [  
+                {  
+                    text: 'x1',  
+                    onPress: () => {updateTurn(points, 1)},  
+                }, 
+                {  
+                    text: 'x2',  
+                    onPress: () => {updateTurn(points, 2)},  
+                },  
+                {  
+                    text: 'x3',  
+                    onPress: () => {updateTurn(points, 3)},  
+                },   
+                ]  
+            );  
+        } else {
+            updateTurn(points, 1);
+        }
     }
 
     const updateTurn = (points, multiplier) => {
         let thisScore 
-        if(points != 25 && points != 50){
-            thisScore = points * multiplier;
-        }
-        else {
-            thisScore = points;
-        }
+        thisScore = points * multiplier;
+      
         shotCounter();
         updateScore(thisScore);
         changePlayer();
@@ -97,10 +95,11 @@ const DartScorekeeper = () => {
             <Text>C'est au tour du Joueur :</Text>
             <Text style={styles.text}>{actualPlayer}</Text>
 
-
-
             <View style={styles.buttonContainer}>
 
+                <TouchableOpacity style={styles.buttonBlanc} onPress={() => addThrow(0)}>
+                    <Text style={styles.buttonTextInvert}>0</Text>
+                </TouchableOpacity> 
                 <TouchableOpacity style={styles.buttonBlanc} onPress={() => addThrow(1)}>
                     <Text style={styles.buttonTextInvert}>1</Text>
                 </TouchableOpacity>              
