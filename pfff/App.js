@@ -1,11 +1,34 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, Alert, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, Button, Alert, TouchableOpacity} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 
 import Test from './functions/Test';
 
 import colors from "react-native/Libraries/NewAppScreen/components/Colors";
 
-const DartScorekeeper = () => {
+const Stack = createNativeStackNavigator();
+const App = () => {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Game">
+                <Stack.Screen
+                    name="Game"
+                    component={DartScorekeeper}
+                    options={{title: 'Flechettes'}}
+                />
+                <Stack.Screen name="Gamemodes" component={Gamemodes}/>
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+};
+
+const Gamemodes = () => {
+    return <Text>Test</Text>;
+};
+
+const DartScorekeeper = ({navigation}) => {
     const [score1, setScore1] = useState(501);
     const [score2, setScore2] = useState(501);
     let [numberShots, setNumberShots] = useState(0);
@@ -18,8 +41,7 @@ const DartScorekeeper = () => {
         if (actualPlayer === 0) {
             setScore1(score1 - shot);
             setThrows1([...throws1, shot]);
-        }
-        else {
+        } else {
             setScore2(score2 - shot);
             setThrows2([...throws2, shot]);
         }
@@ -27,24 +49,30 @@ const DartScorekeeper = () => {
 
     const addThrow = (points) => {
         if (points != 0 && points != 25 && points != 50) {
-            Alert.alert(  
-                points.toString(),  
-                'Select multiplier',  
-                [  
-                {  
-                    text: 'x1',  
-                    onPress: () => {updateTurn(points, 1)},  
-                }, 
-                {  
-                    text: 'x2',  
-                    onPress: () => {updateTurn(points, 2)},  
-                },  
-                {  
-                    text: 'x3',  
-                    onPress: () => {updateTurn(points, 3)},  
-                },   
-                ]  
-            );  
+            Alert.alert(
+                points.toString(),
+                'Select multiplier',
+                [
+                    {
+                        text: 'x1',
+                        onPress: () => {
+                            updateTurn(points, 1)
+                        },
+                    },
+                    {
+                        text: 'x2',
+                        onPress: () => {
+                            updateTurn(points, 2)
+                        },
+                    },
+                    {
+                        text: 'x3',
+                        onPress: () => {
+                            updateTurn(points, 3)
+                        },
+                    },
+                ]
+            );
         } else {
             updateTurn(points, 1);
         }
@@ -53,7 +81,7 @@ const DartScorekeeper = () => {
     const updateTurn = (points, multiplier) => {
         let thisScore;
         thisScore = Test.test(points) * multiplier;
-      
+
         shotCounter();
         updateScore(thisScore);
         changePlayer();
@@ -64,11 +92,11 @@ const DartScorekeeper = () => {
         setNumberShots(numberShots + 1);
     }
     const changePlayer = () => {
-        if(numberShots === 2){
+        if (numberShots === 2) {
             setNumberShots(0);
-            if(actualPlayer=== 0){
+            if (actualPlayer === 0) {
                 setActualPlayer(1);
-            }else{
+            } else {
                 setActualPlayer(0);
             }
         }
@@ -85,16 +113,16 @@ const DartScorekeeper = () => {
     return (
         <View style={styles.container}>
             <View style={styles.playerContainer}>
-            <View style={styles.playerContainer1}>
-                <Text style={styles.text}>{players[0]}</Text>
-                <Text style={styles.score}>{score1}</Text>
-                <Text style={styles.arrayThrows}>{throws1.join(', ')}</Text>
-            </View>
-            <View style={styles.playerContainer2}>
-                <Text style={styles.text}>{players[1]}</Text>
-                <Text style={styles.score}>{score2}</Text>
-                <Text style={styles.arrayThrows}>{throws2.join(', ')}</Text>
-            </View>
+                <View style={styles.playerContainer1}>
+                    <Text style={styles.text}>{players[0]}</Text>
+                    <Text style={styles.score}>{score1}</Text>
+                    <Text style={styles.arrayThrows}>{throws1.join(', ')}</Text>
+                </View>
+                <View style={styles.playerContainer2}>
+                    <Text style={styles.text}>{players[1]}</Text>
+                    <Text style={styles.score}>{score2}</Text>
+                    <Text style={styles.arrayThrows}>{throws2.join(', ')}</Text>
+                </View>
             </View>
             <Text>C'est au tour du Joueur :</Text>
             <Text style={[styles.text, styles.marginBottom]}>{players[actualPlayer]}</Text>
@@ -103,10 +131,10 @@ const DartScorekeeper = () => {
 
                 <TouchableOpacity style={styles.buttonBlanc} onPress={() => addThrow(0)}>
                     <Text style={styles.buttonTextInvert}>0</Text>
-                </TouchableOpacity> 
+                </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonBlanc} onPress={() => addThrow(1)}>
                     <Text style={styles.buttonTextInvert}>1</Text>
-                </TouchableOpacity>              
+                </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={() => addThrow(2)}>
                     <Text style={styles.buttonText}>2</Text>
                 </TouchableOpacity>
@@ -176,6 +204,13 @@ const DartScorekeeper = () => {
 
             <TouchableOpacity style={styles.resetButton} onPress={reset}>
                 <Text style={styles.buttonText}>Reset</Text>
+            </TouchableOpacity>
+
+
+            <TouchableOpacity style={styles.resetButton} onPress={() => {
+                navigation.navigate("Gamemodes")
+            }}>
+                <Text style={styles.buttonText}>Gamemodes</Text>
             </TouchableOpacity>
         </View>
     );
@@ -256,4 +291,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default DartScorekeeper;
+export default App;
