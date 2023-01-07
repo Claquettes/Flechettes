@@ -82,12 +82,22 @@ const DartScorekeeper = () => {
 
     return (
         <View style={styles.container}>
+            <View style={styles.playerContainer}>
+            <View style={styles.playerContainer1}>
+                <Text style={styles.text}>{player1Name}</Text>
+                <Text style={styles.score}>{score1}</Text>
+                <Text style={styles.text}>Throws: {throws1.join(', ')}</Text>
+            </View>
+            <View style={styles.playerContainer2}>
+                <Text style={styles.text}>{player2Name}</Text>
+                <Text style={styles.score}>{score2}</Text>
+                <Text style={styles.text}>Throws: {throws2.join(', ')}</Text>
+            </View>
+            </View>
             <Text>C'est au tour du Joueur :</Text>
             <Text style={styles.text}>{actualPlayer}</Text>
-            <Text style={styles.text}>Joueur 1: {player1Name}</Text>
-            <Text style={styles.score}>Score: {score1}</Text>
-            <Text style={styles.text}>Joueur 2: {player2Name}</Text>
-            <Text style={styles.score}>Score: {score2}</Text>
+
+
 
             <View style={styles.buttonContainer}>
 
@@ -159,8 +169,8 @@ const DartScorekeeper = () => {
                 </TouchableOpacity>
 
             </View>
-            <Text style={styles.text}>Throws: {throws1.join(', ')}</Text>
-            <Text style={styles.text}>Throws: {throws2.join(', ')}</Text>
+
+
             <TouchableOpacity style={styles.resetButton} onPress={reset}>
                 <Text style={styles.buttonText}>Reset</Text>
             </TouchableOpacity>
@@ -169,6 +179,14 @@ const DartScorekeeper = () => {
 }
 
 const styles = StyleSheet.create({
+    playerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '70%',
+        marginBottom: 30,
+    },
+
     container: {
         flex: 1,
         alignItems: 'center',
