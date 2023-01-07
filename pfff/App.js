@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, Alert, TouchableOpacity } from 'react-native';
+
+import Test from './functions/Test';
+
 import colors from "react-native/Libraries/NewAppScreen/components/Colors";
 
 const DartScorekeeper = () => {
@@ -48,8 +51,8 @@ const DartScorekeeper = () => {
     }
 
     const updateTurn = (points, multiplier) => {
-        let thisScore 
-        thisScore = points * multiplier;
+        let thisScore;
+        thisScore = Test.test(points) * multiplier;
       
         shotCounter();
         updateScore(thisScore);
