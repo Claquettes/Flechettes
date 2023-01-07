@@ -25,32 +25,31 @@ const DartScorekeeper = () => {
         }
     }
     const addThrow = (points) => {
-        Alert.prompt(
-            'Enter multiplier',
-            '',
-            [
-                {
-                    text: 'Cancel',
-                    style: 'cancel',
-                },
-                {
-                    text: 'OK',
-                    onPress: (multiplier) => {
-                        shotCounter();
-                        if (multiplier > 0 && multiplier < 4) {
-                            updateScore(points * multiplier);
-                        }else {
-                            Alert.alert("Multiplier must be between 1 and 3, so 1 is assumed");
-                            updateScore(points);
-                        }
-                        changePlayer();
+      Alert.alert(  
+        'Select multiplier',  
+        '',  
+        [  
+          {  
+              text: 'x1',  
+              onPress: () => {updateTurn(points)},  
+          }, 
+          {  
+            text: 'x2',  
+            onPress: () => {updateTurn(points * 2)},  
+          },  
+          {  
+            text: 'x3',  
+            onPress: () => {updateTurn(points * 3)},  
+          },   
+          ]  
+      );  
+    }
 
-                    },
-                },
-            ],
-            'plain-text',
-            '1',
-        );
+    const updateTurn = (scoreThisTurn) => {
+      shotCounter();
+      updateScore(scoreThisTurn);
+      changePlayer();
+
     }
     const shotCounter = () => {
         setNumberShots(numberShots + 1);
@@ -87,7 +86,7 @@ const DartScorekeeper = () => {
 
                 <TouchableOpacity style={styles.buttonBlanc} onPress={() => addThrow(1)}>
                     <Text style={styles.buttonTextInvert}>1</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>              
                 <TouchableOpacity style={styles.button} onPress={() => addThrow(2)}>
                     <Text style={styles.buttonText}>2</Text>
                 </TouchableOpacity>
