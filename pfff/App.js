@@ -5,12 +5,14 @@ import colors from "react-native/Libraries/NewAppScreen/components/Colors";
 const DartScorekeeper = () => {
     const [score1, setScore1] = useState(501);
     const [score2, setScore2] = useState(501);
+    let [numberShots, setNumberShots] = useState(0);
     const [throws1, setThrows1] = useState([]);
     const [throws2, setThrows2] = useState([]);
     let player1Name = "Mathieu";
     let player2Name = "Maxime";
-    let actualPlayer = 1;
-    let shotTemp = Number(0);
+    let [actualPlayer, setActualPlayer] = useState(1);
+
+
 
     const updateScore = (shot) => {
         if (actualPlayer === 1) {
@@ -34,8 +36,10 @@ const DartScorekeeper = () => {
                 {
                     text: 'OK',
                     onPress: (multiplier) => {
+                        shotCounter();
                         updateScore(points * multiplier);
                         changePlayer();
+
                     },
                 },
             ],
@@ -43,28 +47,31 @@ const DartScorekeeper = () => {
             '1',
         );
     }
+    const shotCounter = () => {
+        setNumberShots(numberShots + 1);
+    }
     const changePlayer = () => {
-        //on incrémente la variable shotTemp de 1
-        shotTemp++;
-        if(shotTemp === 3){
-            shotTemp = 0;
-            if(actualPlayer === 1){
-                actualPlayer = 2;
+        if(numberShots === 2){
+            setNumberShots(0);
+            if(actualPlayer=== 1){
+                setActualPlayer(2);
             }else{
-                actualPlayer = 1;
+                setActualPlayer(1);
             }
         }
     }
     const reset = () => {
         setScore1(501);
+        setScore2(501);
         setThrows1([]);
         setThrows2([]);
+        setNumberShots(0);
+        setActualPlayer(1);
     }
 
     return (
         <View style={styles.container}>
-            <Text>shotTemp:</Text>
-            <Text>{shotTemp}</Text>
+            <Text>C'est au tour du joueur :</Text>
             <Text style={styles.text}>{actualPlayer}</Text>
             <Text style={styles.text}>Joueur 1: {player1Name}</Text>
             <Text style={styles.score}>Score: {score1}</Text>
@@ -141,7 +148,6 @@ const DartScorekeeper = () => {
                 </TouchableOpacity>
 
             </View>
-            <Text style={styles.text}>Joueur 1: {player1Name}</Text>
             <Text style={styles.text}>Throws: {throws1.join(', ')}</Text>
             <Text style={styles.text}>Throws: {throws2.join(', ')}</Text>
             <TouchableOpacity style={styles.resetButton} onPress={reset}>
