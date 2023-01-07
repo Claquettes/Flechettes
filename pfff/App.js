@@ -37,7 +37,12 @@ const DartScorekeeper = () => {
                     text: 'OK',
                     onPress: (multiplier) => {
                         shotCounter();
-                        updateScore(points * multiplier);
+                        if (multiplier > 0 && multiplier < 4) {
+                            updateScore(points * multiplier);
+                        }else {
+                            Alert.alert("Multiplier must be between 1 and 3, so 1 is assumed");
+                            updateScore(points);
+                        }
                         changePlayer();
 
                     },
@@ -71,7 +76,7 @@ const DartScorekeeper = () => {
 
     return (
         <View style={styles.container}>
-            <Text>C'est au tour du joueur :</Text>
+            <Text>C'est au tour du Joueur :</Text>
             <Text style={styles.text}>{actualPlayer}</Text>
             <Text style={styles.text}>Joueur 1: {player1Name}</Text>
             <Text style={styles.score}>Score: {score1}</Text>
