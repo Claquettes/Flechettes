@@ -27,8 +27,8 @@ const HomePage = ({navigation}) => {
     
     return (
         <View style={styles.containerMain}>
-            <TouchableOpacity style={styles.buttonPrimary}>
-                <Text style={[styles.textBig, styles.textWhite]} onPress={() => navigation.navigate('ManagePlayers')}>Manage Players</Text>
+            <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('ManagePlayers')}>
+                <Text style={[styles.textBig, styles.textWhite]}>Manage Players</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('GameModes')}>
                 <Text style={[styles.textBig, styles.textWhite]}>New Game</Text>
