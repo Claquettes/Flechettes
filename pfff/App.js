@@ -24,8 +24,17 @@ const App = () => {
     );
 };
 
-const Gamemodes = () => {
-    return <Text>Test</Text>;
+const Gamemodes = () => { //on place des boutons pour choisir le mode de jeu
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Choisissez un mode de jeu</Text>
+            <Button title="Classique" onPress={() => classic()}/>
+            <Button title="Cricket" onPress={() => cricket()}/>
+            <Button title="301" onPress={() => three01()}/>
+            <Button title="501" onPress={() => five01()}/>
+            <Button title="701" onPress={() => seven01()}/>
+        </View>
+    );
 };
 
 const DartScorekeeper = ({navigation}) => {
