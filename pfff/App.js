@@ -129,9 +129,6 @@ const DartScorekeeper = ({navigation}) => {
 
             <View style={styles.buttonContainer}>
 
-                <TouchableOpacity style={styles.buttonBlanc} onPress={() => addThrow(0)}>
-                    <Text style={styles.buttonTextInvert}>0</Text>
-                </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonBlanc} onPress={() => addThrow(1)}>
                     <Text style={styles.buttonTextInvert}>1</Text>
                 </TouchableOpacity>
@@ -191,6 +188,9 @@ const DartScorekeeper = ({navigation}) => {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={() => addThrow(20)}>
                     <Text style={styles.buttonText}>20</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonBlanc} onPress={() => addThrow(0)}>
+                    <Text style={styles.buttonTextInvert}>0</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonVert} onPress={() => addThrow(25)}>
                     <Text style={styles.buttonText}>25</Text>
