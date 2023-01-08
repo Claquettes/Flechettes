@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {styles} from "./styles/MainStylesheet";
 import GameModes from "./GameModes";
 import Game from "./Game";
+import ManagePlayers from "./ManagePlayers";
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +14,8 @@ const App = () => {
             <Stack.Navigator initialRouteName="HomePage">
                 <Stack.Screen name="HomePage" component={HomePage} options={{title: 'Home'}}/>
                 <Stack.Screen name="GameModes" component={GameModes} />
-                <Stack.Screen name="Game" component={Game} />
+                <Stack.Screen name="Game" component={Game} /> 
+                <Stack.Screen name="ManagePlayers" component={ManagePlayers} options={{title: 'Manage Players'}}/> 
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -26,7 +28,7 @@ const HomePage = ({navigation}) => {
     return (
         <View style={styles.containerMain}>
             <TouchableOpacity style={styles.buttonPrimary}>
-                <Text style={[styles.textBig, styles.textWhite]}>Manage Players</Text>
+                <Text style={[styles.textBig, styles.textWhite]} onPress={() => navigation.navigate('ManagePlayers')}>Manage Players</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('GameModes')}>
                 <Text style={[styles.textBig, styles.textWhite]}>New Game</Text>
