@@ -24,19 +24,44 @@ const App = () => {
     );
 };
 
-const Gamemodes = () => { //on place des boutons pour choisir le mode de jeu
+const Gamemodes = () => { //on place des boutons pour choisir le mode de jeu, et on renvoie vers la page de jeu
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Choisissez un mode de jeu</Text>
-            <Button title="Classique" onPress={() => classic()}/>
-            <Button title="Cricket" onPress={() => cricket()}/>
-            <Button title="301" onPress={() => three01()}/>
-            <Button title="501" onPress={() => five01()}/>
-            <Button title="701" onPress={() => seven01()}/>
+            <Text style={styles.text}>Select The Game Mode</Text>
+            <Button
+                title="301"
+                onPress={() => three01()}
+            />
+            <Button
+                title="501"
+                onPress={() => five01()}
+            />
+            <Button
+                title="701"
+                onPress={() => seven01()}
+            />
+           
         </View>
     );
 };
 
+//ces fonctions devraient être dans un fichier à part, mais je n'ai pas réussi à les importer
+
+function three01(score1, score2) { //on définit les scores de départ, puis on renvoie vers la page de jeu
+    score1 = 301;
+    score2 = 301;
+}
+
+function five01(score1, score2) {
+    score1 = 501;
+    score2 = 501;
+}
+
+function seven01(score1, score2) {
+    score1 = 701;
+    score2 = 701;
+}
+    
 const DartScorekeeper = ({navigation}) => {
     const [score1, setScore1] = useState(501);
     const [score2, setScore2] = useState(501);
