@@ -5,19 +5,19 @@ const GameModes = ({navigation}) => {
     
     return (
         <View style={styles.containerMain}>
-            <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('Game')}>
+            <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('Game',{gamemode: '301'})}>
                 <Text style={[styles.textBig, styles.textWhite]}>301</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('Game')}>
+            <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('Game', {gamemode: '501'})}>
                 <Text style={[styles.textBig, styles.textWhite]}>501</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('Game')}>
+            <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('Game', {gamemode: '701'})}>
                 <Text style={[styles.textBig, styles.textWhite]}>701</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('Game')}>
+            <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('Game', {gamemode: '501-rumble'})}>
                 <Text style={[styles.textBig, styles.textWhite]}>501 Rumble</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('Game')}>
+            <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('Game', {gamemode: 'killer'})}>
                 <Text style={[styles.textBig, styles.textWhite]}>Killer</Text>
             </TouchableOpacity>
         </View>

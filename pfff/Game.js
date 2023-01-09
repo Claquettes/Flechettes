@@ -21,12 +21,28 @@ function seven01(score1, score2) {
     score2 = 701;
 }
     
-const Game = ({navigation}) => {
-    const [score1, setScore1] = useState(501);
-    const [score2, setScore2] = useState(501);
+const Game = ({route, navigation}) => {
+    let gamemode = route.params['gamemode'];
+
+    let defaultScore;
+    if(gamemode === '301') {
+       defaultScore = 301;
+    }
+    else if(gamemode === '701') {
+        defaultScore = 701;
+    } 
+    else {
+        defaultScore = 501;
+    }
+    
+    const [score1, setScore1] = useState(defaultScore);
+    const [score2, setScore2] = useState(defaultScore);
+
     let [numberShots, setNumberShots] = useState(0);
+
     const [throws1, setThrows1] = useState([]);
     const [throws2, setThrows2] = useState([]);
+
     let players = ["Mathieu", "Maxime"];
     let [actualPlayer, setActualPlayer] = useState(0);
 
@@ -74,6 +90,25 @@ const Game = ({navigation}) => {
     const updateTurn = (points, multiplier) => {
         let thisScore;
         // thisScore = Test.test(points) * multiplier;
+
+        switch (gamemode) {
+            case '301' :
+                // fonction du 301
+                break;
+            case '501' :
+                // fonction du 501
+                break;
+            case '701' :
+                // fonction du 701
+                break;
+            case '501-rumble' :
+                // fonction du 501 rumble
+                break;
+            case 'killer' :
+                // fonction du killer
+                break;
+        }
+
         thisScore = points * multiplier;
         shotCounter();
         updateScore(thisScore);
@@ -94,8 +129,8 @@ const Game = ({navigation}) => {
         }
     }
     const reset = () => {
-        setScore1(501);
-        setScore2(501);
+        setScore1(defaultScore);
+        setScore2(defaultScore);
         setThrows1([]);
         setThrows2([]);
         setNumberShots(0);
