@@ -98,11 +98,13 @@ const Game = ({route, navigation}) => {
             case '501' :
                 // fonction du 501
                 break;
-            case '701' :
-                // fonction du 701
-                break;
             case '501-rumble' :
                 // fonction du 501 rumble
+            case '501-party' :
+                // fonction du 501 party
+                break;
+            case '701' :
+                // fonction du 701
                 break;
             case 'killer' :
                 // fonction du killer
