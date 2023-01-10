@@ -91,45 +91,91 @@ const Game = ({route, navigation}) => {
         let thisScore;
         // thisScore = Test.test(points) * multiplier;
 
+        function instantEnd(Joueur) {
+            Alert.alert(Joueur + " a gagné!");
+            //navigation.navigate('Home'); //NE MARCHE PAS
+        }
+
         switch (gamemode) {
             case '301' :
-                // fonction du 301
+                thisScore = points * multiplier;
                 break;
             case '501' :
-                // fonction du 501
+                thisScore = points * multiplier;
                 break;
             case '501-rumble' :
-                // fonction du 501 rumble
-            case '501-party' :
-                // fonction du 501 party
+                thisScore = points * multiplier;
+                break;
+            case '501-party' :  // une chance sur deux de déclancher l'évenement
+                thisScore = points * multiplier;
                 break;
             case '701' :
-                // fonction du 701
+                thisScore = points * multiplier;
                 break;
             case 'killer' :
-                // fonction du killer
+                thisScore = points * multiplier;
                 break;
         }
 
-        thisScore = points * multiplier;
+        
         shotCounter();
         updateScore(thisScore);
         changePlayer();
+        if (score1 === 0) {
+            instantEnd(players[Joueur1]);
+        }
+        if (score2 === 0) {
+            instantEnd(players[Joueur2]);
+        }
     }
 
     const shotCounter = () => {
         setNumberShots(numberShots + 1);
     }
-    const changePlayer = () => {
+    const changePlayer = () => {if(Math.random() <= 0.5){
         if (numberShots === 2) {
             setNumberShots(0);
             if (actualPlayer === 0) {
                 setActualPlayer(1);
             } else {
                 setActualPlayer(0);
+                if(gamemode ==='501-party'){
+                    if(Math.random() <= 0.475){
+                        triggerEvent();
+                    }
+                    if((Math.random() < 0.95)&&(Math.random() > 0.475)){
+                        triggerNormal();
+                    }else{
+                        triggerGoldenCarrot();
+                    } 
+                }
             }
         }
     }
+    /*function triggerEvent(){
+        if (Math.random() < 0.075) { // 7.5% de chance que les points soient doublées
+            Alert.alert("Les Points sont doublés ce tour!");
+            parseInt(thisScore = points * multiplier *2);
+        }
+        if ((Math.random() > 0.075) && (Math.random()< 0.15) ) { // 7.5% de chance que les points soient divisées par 2
+            Alert.alert("Les Points sont divisées par 2 ce tour!");
+            parseInt(thisScore = points * multiplier /2);
+        }
+        if ((Math.random() > 0.15) && (Math.random()< 0.88) ) { // 3% de chance que la golden carrot apparaisse
+            
+            let goldenCarrot = Math.floor(Math.random() * 20) + 1; //on créé la golden carrot 
+            Alert.alert("THE GOLDEN CARROT APPEARS! IF YOU HIT " + goldenCarrot+ "YOU WIN THE GAME!");
+            if (points === goldenCarrot) {
+                instantEnd(players[actualPlayer]);
+            }else{
+                parseInt(thisScore = points * multiplier);
+            }
+        }
+    }
+    function triggerNormal(){
+
+    }
+    */
     const reset = () => {
         setScore1(defaultScore);
         setScore2(defaultScore);
