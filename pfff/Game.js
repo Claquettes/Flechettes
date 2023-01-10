@@ -109,14 +109,14 @@ const Game = ({route, navigation}) => {
             case '501-rumble' :
                 thisScore = points * multiplier;
                 break;
-            case '501-party' :  
+            case '501-party':  
                 parseInt(thisScore);
                 switch(curentEvent){
                     case 'doubling' :
                         thisScore = points * multiplier * 2;
                         break;
                     case 'halving' :
-                        thisScore = parseInt((points)/2) * multiplier;
+                        thisScore = parseInt((points * multiplier)/2);
                         break;
                     case 'goldenCarrot' :
                         if (points === goldenCarrot){
