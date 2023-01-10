@@ -177,8 +177,6 @@ const Game = ({route, navigation}) => {
                 }
             }
         }}
-
-
                 
     function triggerEvent(){
         if (Math.random() < 0.5) { 
