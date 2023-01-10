@@ -23,7 +23,7 @@ function seven01(score1, score2) {
     
 const Game = ({route, navigation}) => {
     let gamemode = route.params['gamemode'];
-
+    //------------------------------------------------
     let defaultScore;
     if(gamemode === '301') {
        defaultScore = 301;
@@ -46,6 +46,8 @@ const Game = ({route, navigation}) => {
     let players = ["Mathieu", "Maxime"];
     let [actualPlayer, setActualPlayer] = useState(0);
 
+    let [curentEvent, setCurentEvent] = useState("normal");
+    //------------------------------------------------
     const updateScore = (shot) => {
         if (actualPlayer === 0) {
             setScore1(score1 - shot);
@@ -106,7 +108,7 @@ const Game = ({route, navigation}) => {
             case '501-rumble' :
                 thisScore = points * multiplier;
                 break;
-            case '501-party' :  // une chance sur deux de déclancher l'évenement
+            case '501-party' :  
                 thisScore = points * multiplier;
                 break;
             case '701' :
@@ -133,51 +135,49 @@ const Game = ({route, navigation}) => {
         setNumberShots(numberShots + 1);
     }
     const changePlayer = () => {
-    if(Math.random() <= 0.5){
+    
         if (numberShots === 2) {
             setNumberShots(0);
             if (actualPlayer === 0) {
                 setActualPlayer(1);
             } else {
                 setActualPlayer(0);
-                if(gamemode ==='501-party'){
-                    if(Math.random() <= 0.475){
-                        triggerEvent();
+                if(Math.random() <= 1){
+                    if(gamemode ==='501-party'){
+                        if(Math.random() <= 1){
+                            triggerEvent();
+                        }
+                        if((Math.random() < 0.95)&&(Math.random() > 0.475)){
+                            triggerNormal();
+                        }else{
+                            triggerGoldenCarrot();
                     }
-                    if((Math.random() < 0.95)&&(Math.random() > 0.475)){
-                        triggerNormal();
-                    }else{
-                        triggerGoldenCarrot();
-                    } 
                 }
             }
-        }
+        }}
     }
-    }
-    /*function triggerEvent(){
-        if (Math.random() < 0.075) { // 7.5% de chance que les points soient doublées
+
+                
+
+    
+    function triggerEvent(){
+        if (Math.random() < 1) { // 7.5% de chance que les points soient doublées
             Alert.alert("Les Points sont doublés ce tour!");
-            parseInt(thisScore = points * multiplier *2);
+            setCurentEvent("doubling");
         }
         if ((Math.random() > 0.075) && (Math.random()< 0.15) ) { // 7.5% de chance que les points soient divisées par 2
             Alert.alert("Les Points sont divisées par 2 ce tour!");
-            parseInt(thisScore = points * multiplier /2);
+            setCurentEvent("halving");
         }
         if ((Math.random() > 0.15) && (Math.random()< 0.88) ) { // 3% de chance que la golden carrot apparaisse
-            
             let goldenCarrot = Math.floor(Math.random() * 20) + 1; //on créé la golden carrot 
             Alert.alert("THE GOLDEN CARROT APPEARS! IF YOU HIT " + goldenCarrot+ "YOU WIN THE GAME!");
-            if (points === goldenCarrot) {
-                instantEnd(players[actualPlayer]);
-            }else{
-                parseInt(thisScore = points * multiplier);
-            }
+            setCurentEvent("goldenCarrot");
         }
     }
     function triggerNormal(){
 
     }
-    */
     const reset = () => {
         setScore1(defaultScore);
         setScore2(defaultScore);
@@ -191,6 +191,7 @@ const Game = ({route, navigation}) => {
         <View style={gameStyles.container}>
             <View style={gameStyles.playerContainer}>
                 <View style={gameStyles.playerContainer1}>
+                    <Text style={gameStyles.score}>{curentEvent}</Text>
                     <Text style={gameStyles.text}>{players[0]}</Text>
                     <Text style={gameStyles.score}>{score1}</Text>
                     <Text style={gameStyles.arrayThrows}>{throws1.join(', ')}</Text>
