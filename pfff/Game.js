@@ -98,6 +98,7 @@ const Game = ({route, navigation}) => {
             //navigation.navigate('Home'); //NE MARCHE PAS
         }
 
+        
         switch (gamemode) {
             case '301' :
                 thisScore = points * multiplier;
@@ -109,8 +110,24 @@ const Game = ({route, navigation}) => {
                 thisScore = points * multiplier;
                 break;
             case '501-party' :  
-                thisScore = points * multiplier;
-                break;
+                parseInt(thisScore);
+                switch(curentEvent){
+                    case 'doubling' :
+                        thisScore = points * multiplier * 2;
+                        break;
+                    case 'halving' :
+                        thisScore = parseInt((points)/2) * multiplier;
+                        break;
+                    case 'goldenCarrot' :
+                        if (points === goldenCarrot){
+                            instantEnd(players[actualPlayer]);
+                        }
+                        break;
+                    case 'normal' :
+                        thisScore = points * multiplier;
+                        break;
+                    }   
+            break;  
             case '701' :
                 thisScore = points * multiplier;
                 break;
@@ -119,7 +136,6 @@ const Game = ({route, navigation}) => {
                 break;
         }
 
-        
         shotCounter();
         updateScore(thisScore);
         changePlayer();
@@ -142,15 +158,15 @@ const Game = ({route, navigation}) => {
                 setActualPlayer(1);
             } else {
                 setActualPlayer(0);
-                if(Math.random() <= 1){
+                if(Math.random() <= 0.5){
                     if(gamemode ==='501-party'){
-                        if(Math.random() <= 1){
+                        if(Math.random() <= 0.475){ //47.5% de chance
                             triggerEvent();
                         }
-                        if((Math.random() < 0.95)&&(Math.random() > 0.475)){
+                        if((Math.random() < 0.95)&&(Math.random() > 0.475)){ //47.5% de chance
                             triggerNormal();
                         }else{
-                            triggerGoldenCarrot();
+                            triggerGoldenCarrot(); //5% de chance
                     }
                 }
             }
@@ -158,25 +174,23 @@ const Game = ({route, navigation}) => {
     }
 
                 
-
-    
     function triggerEvent(){
-        if (Math.random() < 1) { // 7.5% de chance que les points soient doublées
+        if (Math.random() < 0.5) { 
             Alert.alert("Les Points sont doublés ce tour!");
             setCurentEvent("doubling");
         }
-        if ((Math.random() > 0.075) && (Math.random()< 0.15) ) { // 7.5% de chance que les points soient divisées par 2
+        if ((Math.random() > 0.5) && (Math.random()< 1) ) {
             Alert.alert("Les Points sont divisées par 2 ce tour!");
             setCurentEvent("halving");
         }
-        if ((Math.random() > 0.15) && (Math.random()< 0.88) ) { // 3% de chance que la golden carrot apparaisse
-            let goldenCarrot = Math.floor(Math.random() * 20) + 1; //on créé la golden carrot 
-            Alert.alert("THE GOLDEN CARROT APPEARS! IF YOU HIT " + goldenCarrot+ "YOU WIN THE GAME!");
-            setCurentEvent("goldenCarrot");
-        }
     }
     function triggerNormal(){
-
+        setCurentEvent("normal");
+    }
+    function triggerGoldenCarrot(){
+        let goldenCarrot = Math.floor(Math.random() * 20) + 1;
+        setCurentEvent("goldenCarrot");
+        Alert.alert("THE GOLDEN CARROT APPEARS! IF YOU HIT " + goldenCarrot+ "YOU WIN THE GAME!");  
     }
     const reset = () => {
         setScore1(defaultScore);
