@@ -165,13 +165,19 @@ const Game = ({route, navigation}) => {
                         }
                         if((Math.random() < 0.95)&&(Math.random() > 0.475)){ //47.5% de chance
                             triggerNormal();
-                        }else{
-                            triggerGoldenCarrot(); //5% de chance
+                        }
+                        if(Math.random() >= 0.95){ //5% de chance
+                            triggerGoldenCarrot();
+                        }
+                        else{
+                            triggerNormal();
+                        }
+
                     }
                 }
             }
         }}
-    }
+
 
                 
     function triggerEvent(){
@@ -184,9 +190,11 @@ const Game = ({route, navigation}) => {
             setCurentEvent("halving");
         }
     }
+
     function triggerNormal(){
         setCurentEvent("normal");
     }
+
     function triggerGoldenCarrot(){
         let goldenCarrot = Math.floor(Math.random() * 20) + 1;
         setCurentEvent("goldenCarrot");
