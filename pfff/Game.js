@@ -132,7 +132,8 @@ const Game = ({route, navigation}) => {
     const shotCounter = () => {
         setNumberShots(numberShots + 1);
     }
-    const changePlayer = () => {if(Math.random() <= 0.5){
+    const changePlayer = () => {
+    if(Math.random() <= 0.5){
         if (numberShots === 2) {
             setNumberShots(0);
             if (actualPlayer === 0) {
@@ -151,6 +152,7 @@ const Game = ({route, navigation}) => {
                 }
             }
         }
+    }
     }
     /*function triggerEvent(){
         if (Math.random() < 0.075) { // 7.5% de chance que les points soient doublées
@@ -281,5 +283,5 @@ const Game = ({route, navigation}) => {
         </View>
     );
 }
-
 export default Game;
+
