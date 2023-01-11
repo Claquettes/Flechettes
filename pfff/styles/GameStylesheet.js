@@ -13,11 +13,21 @@ export const gameStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    debugContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '10%',
+        backgroundColor: 'red',
+    },
     arrayThrows: {
         fontSize: 10,
     },
     text: {
         fontSize: 20,
+    },
+    debug: {
+        fontSize: 10,
     },
     marginBottom: {
         marginBottom: 30,

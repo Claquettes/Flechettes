@@ -47,6 +47,7 @@ const Game = ({route, navigation}) => {
     let [actualPlayer, setActualPlayer] = useState(0);
 
     let [curentEvent, setCurentEvent] = useState("normal");
+    let goldenCarrot = Math.floor(Math.random() * 20) + 1;
     //------------------------------------------------
     const updateScore = (shot) => {
         if (actualPlayer === 0) {
@@ -57,7 +58,9 @@ const Game = ({route, navigation}) => {
             setThrows2([...throws2, shot]);
         }
     }
-
+    function instantEnd(joueur) {
+        Alert.alert(joueur + " a gagné!");
+    }
     const addThrow = (points) => {
         if (points != 0 && points != 25 && points != 50) {
             Alert.alert(
@@ -93,12 +96,6 @@ const Game = ({route, navigation}) => {
         let thisScore;
         // thisScore = Test.test(points) * multiplier;
 
-        function instantEnd(Joueur) {
-            Alert.alert(Joueur + " a gagné!");
-            //navigation.navigate('Home'); //NE MARCHE PAS
-        }
-
-        
         switch (gamemode) {
             case '301' :
                 thisScore = points * multiplier;
@@ -109,25 +106,27 @@ const Game = ({route, navigation}) => {
             case '501-rumble' :
                 thisScore = points * multiplier;
                 break;
+
             case '501-party' :  
                 parseInt(thisScore);
                 switch(curentEvent){
-                    case 'doubling' :
+                    case "doubling" :
                         thisScore = points * multiplier * 2;
                         break;
-                    case 'halving' :
+                    case "halving" :
                         thisScore = parseInt((points)/2) * multiplier;
                         break;
-                    case 'goldenCarrot' :
+                    case "goldenCarrot" :
                         if (points === goldenCarrot){
                             instantEnd(players[actualPlayer]);
                         }
                         break;
-                    case 'normal' :
+                    case "normal" :
                         thisScore = points * multiplier;
                         break;
                     }   
-            break;  
+            break; 
+             
             case '701' :
                 thisScore = points * multiplier;
                 break;
@@ -140,16 +139,16 @@ const Game = ({route, navigation}) => {
         updateScore(thisScore);
         changePlayer();
         if (score1 === 0) {
-            instantEnd(players[Joueur1]);
+            instantEnd(players[0]);
         }
         if (score2 === 0) {
-            instantEnd(players[Joueur2]);
+            instantEnd(players[1]);
         }
     }
 
     const shotCounter = () => {
         setNumberShots(numberShots + 1);
-    }
+    } 
     const changePlayer = () => {
     
         if (numberShots === 2) {
@@ -160,30 +159,23 @@ const Game = ({route, navigation}) => {
                 setActualPlayer(0);
                 if(Math.random() <= 0.5){
                     if(gamemode ==='501-party'){
-                        if(Math.random() <= 0.475){ //47.5% de chance
+                        if(Math.random() <= 0.975){ //47.5% de chance
                             triggerEvent();
-                        }
-                        if((Math.random() < 0.95)&&(Math.random() > 0.475)){ //47.5% de chance
-                            triggerNormal();
-                        }
-                        if(Math.random() >= 0.95){ //5% de chance
-                            triggerGoldenCarrot();
                         }
                         else{
                             triggerNormal();
                         }
-
                     }
                 }
             }
         }}
-                
+
     function triggerEvent(){
         if (Math.random() < 0.5) { 
             Alert.alert("Les Points sont doublés ce tour!");
             setCurentEvent("doubling");
         }
-        if ((Math.random() > 0.5) && (Math.random()< 1) ) {
+        if ((Math.random() > 0.5) && (Math.random() < 1)) {
             Alert.alert("Les Points sont divisées par 2 ce tour!");
             setCurentEvent("halving");
         }
@@ -194,7 +186,7 @@ const Game = ({route, navigation}) => {
     }
 
     function triggerGoldenCarrot(){
-        let goldenCarrot = Math.floor(Math.random() * 20) + 1;
+        goldenCarrot = Math.floor(Math.random() * 20) + 1;
         setCurentEvent("goldenCarrot");
         Alert.alert("THE GOLDEN CARROT APPEARS! IF YOU HIT " + goldenCarrot+ "YOU WIN THE GAME!");  
     }
@@ -209,9 +201,19 @@ const Game = ({route, navigation}) => {
 
     return (
         <View style={gameStyles.container}>
+            <View style={gameStyles.debugContainer}>
+            <Text style={gameStyles.debug}>Debug Menu </Text>
+
+            <Text style={gameStyles.debug}>Current event:  {curentEvent}</Text>
+            <Text style={gameStyles.debug}>GoldenCarrot:   {goldenCarrot}</Text>
+            <Text style={gameStyles.debug}>numberShots:    {numberShots}</Text>
+            <Text style={gameStyles.debug}>actualplayer:   {actualPlayer}</Text>
+
+            
+            </View>
             <View style={gameStyles.playerContainer}>
                 <View style={gameStyles.playerContainer1}>
-                    <Text style={gameStyles.score}>{curentEvent}</Text>
+                    
                     <Text style={gameStyles.text}>{players[0]}</Text>
                     <Text style={gameStyles.score}>{score1}</Text>
                     <Text style={gameStyles.arrayThrows}>{throws1.join(', ')}</Text>
