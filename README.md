@@ -29,9 +29,9 @@ Built using React-native for high compatibility on mobile devices.
 [contributors-url]: https://github.com/Claquettes/Flechettes/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
 [forks-url]: https://github.com/Claquettes/Flechettes/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/Claquettes/Flechettes.svg?style=for-the-badge
 [stars-url]: https://github.com/Claquettes/Flechettes/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/Claquettes/Flechettes.svg?style=for-the-badge
 [issues-url]: https://github.com/othneildrew/Best-README-Template/issues
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/Claquettes/Flechettes/blob/master/LICENSE.txt
