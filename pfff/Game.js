@@ -138,9 +138,9 @@ const Game = ({route, navigation}) => {
             case '701' :
                 thisScore = points * multiplier;
                 break;
-            case 'killer' :
-                thisScore = points * multiplier;
-                break;
+            case 'killer' : 
+            thisScore = points * multiplier;
+            break;
         }
 
         shotCounter();

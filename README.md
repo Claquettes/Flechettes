@@ -4,9 +4,9 @@ Demo by Maxime Antoine using Adobe XD.
 
 ### Gamemodes Led by Mathieu 'Claquettes'
 `x01` : A classical x01 game of darts, with the necessity to score exactly x01 points to win, no more, no less. <br />
-`Party!` : A 501 game where specials events happends at random to spice up the game.    <br />
-`501 Rumble` : A fun mode not developp yet, but will be soon.   <br />
-`Killer` : A fun mode not developp yet, but will be soon.   <br />
+`501 Party!` : A 501 game where specials events happends at random to spice up the game.    <br />
+`501 Sniper` : A fun mode not developp yet, but will be soon.   <br />
+`Killer` : Hit the same number twice in a turn and it's added to your opponent score.   <br />
 `Vs Bot` : play vs a bot with a difficulty level of your choice.        <br />
 
 ### Profile Developpment Led by Maxime Antoine
