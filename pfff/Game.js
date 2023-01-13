@@ -162,7 +162,7 @@ const Game = ({route, navigation}) => {
                 setActualPlayer(0);
                 if(Math.random() <= 0.5){
                     if(gamemode ==='501-party'){
-                        if(Math.random() <= 0.15){ //47.5% de chance
+                        if(Math.random() <= 0.85){ //85% de chance
                             triggerEvent();
                         }
                         else{
