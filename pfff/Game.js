@@ -117,8 +117,11 @@ const Game = ({route, navigation}) => {
                         thisScore = parseInt((points)/2) * multiplier;
                         break;
                     case "goldenCarrot" :
-                        if (points === goldenCarrot){
+                        if (points === goldenCarrot){  //peu importe le multiplier 
                             instantEnd(players[actualPlayer]);
+                        }
+                        else{
+                            thisScore = points * multiplier;
                         }
                         break;
                     case "normal" :
@@ -126,7 +129,7 @@ const Game = ({route, navigation}) => {
                         break;
                     }   
             break; 
-             
+    
             case '701' :
                 thisScore = points * multiplier;
                 break;
@@ -159,11 +162,11 @@ const Game = ({route, navigation}) => {
                 setActualPlayer(0);
                 if(Math.random() <= 0.5){
                     if(gamemode ==='501-party'){
-                        if(Math.random() <= 0.975){ //47.5% de chance
+                        if(Math.random() <= 0.15){ //47.5% de chance
                             triggerEvent();
                         }
                         else{
-                            triggerNormal();
+                            triggerGoldenCarrot();
                         }
                     }
                 }
@@ -171,6 +174,7 @@ const Game = ({route, navigation}) => {
         }}
 
     function triggerEvent(){
+        gameStyles.goldenCarrot = {opacity: 0};
         if (Math.random() < 0.5) { 
             Alert.alert("Les Points sont doublés ce tour!");
             setCurentEvent("doubling");
@@ -182,15 +186,19 @@ const Game = ({route, navigation}) => {
     }
 
     function triggerNormal(){
+        gameStyles.goldenCarrot = {opacity: 0};
         setCurentEvent("normal");
     }
 
     function triggerGoldenCarrot(){
-        goldenCarrot = Math.floor(Math.random() * 20) + 1;
         setCurentEvent("goldenCarrot");
-        Alert.alert("THE GOLDEN CARROT APPEARS! IF YOU HIT " + goldenCarrot+ "YOU WIN THE GAME!");  
+        gameStyles.goldenCarrot = {opacity: 1};
+        
+        Alert.alert("THE GOLDEN CARROT APPEARS! THE FIRST PLAYER TO HIT IT WINS THE GAME!");  //RAJOUTER LE FAIT DE LA MONTRER AU JPOUEUR EN DEHORS DU DEBUG SCREEN
     }
     const reset = () => {
+        gameStyles.goldenCarrot = {opacity: 0};
+        setCurentEvent("normal");
         setScore1(defaultScore);
         setScore2(defaultScore);
         setThrows1([]);
@@ -201,16 +209,7 @@ const Game = ({route, navigation}) => {
 
     return (
         <View style={gameStyles.container}>
-            <View style={gameStyles.debugContainer}>
-            <Text style={gameStyles.debug}>Debug Menu </Text>
 
-            <Text style={gameStyles.debug}>Current event:  {curentEvent}</Text>
-            <Text style={gameStyles.debug}>GoldenCarrot:   {goldenCarrot}</Text>
-            <Text style={gameStyles.debug}>numberShots:    {numberShots}</Text>
-            <Text style={gameStyles.debug}>actualplayer:   {actualPlayer}</Text>
-
-            
-            </View>
             <View style={gameStyles.playerContainer}>
                 <View style={gameStyles.playerContainer1}>
                     
@@ -223,6 +222,9 @@ const Game = ({route, navigation}) => {
                     <Text style={gameStyles.score}>{score2}</Text>
                     <Text style={gameStyles.arrayThrows}>{throws2.join(', ')}</Text>
                 </View>
+            </View>
+            <View style={gameStyles.goldenCarrotContainer}>
+            <Text style={gameStyles.goldenCarrot}>GoldenCarrot:   {goldenCarrot}</Text>          
             </View>
             <Text>C'est au tour du Joueur :</Text>
             <Text style={[gameStyles.text, gameStyles.marginBottom]}>{players[actualPlayer]}</Text>
