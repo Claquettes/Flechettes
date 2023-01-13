@@ -103,8 +103,13 @@ const Game = ({route, navigation}) => {
             case '501' :
                 thisScore = points * multiplier;
                 break;
-            case '501-rumble' :
-                thisScore = points * multiplier;
+            case '501-sniper' :
+                parseInt(thisScore);
+                parseInt(multiplier);
+                if(multiplier!==1){
+                    thisScore = parseInt(points * multiplier * 1.5); //on multiplie par 1.5 si le joueur a choisi un multiplicateur
+                }
+                else{thisScore = points * multiplier;}
                 break;
 
             case '501-party' :  
