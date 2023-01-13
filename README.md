@@ -8,7 +8,7 @@ This application was created by Maxime Antoine, Guillaume 'FlashOnFire' and Math
 Demo by Maxime Antoine using Adobe XD.
 
 ### Gamemodes Led by Mathieu 'Claquettes'
-`x01` : A classical x01 game of darts, 3 darts per round, and the necessity to score exactly x01 points to win, no more, no less. <br />
+`x01` : A classical x01 game of darts, with the necessity to score exactly x01 points to win, no more, no less. <br />
 `Party!` : A 501 game where specials events happends at random to spice up the game.    <br />
 `501 Rumble` : A fun mode not developp yet, but will be soon.   <br />
 `Killer` : A fun mode not developp yet, but will be soon.   <br />
