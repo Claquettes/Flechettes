@@ -47,6 +47,7 @@ const Game = ({route, navigation}) => {
     let [actualPlayer, setActualPlayer] = useState(0);
 
     let [curentEvent, setCurentEvent] = useState("normal");
+    let goldenCarrot = Math.floor(Math.random() * 20) + 1;
     //------------------------------------------------
     const updateScore = (shot) => {
         if (actualPlayer === 0) {
@@ -57,7 +58,9 @@ const Game = ({route, navigation}) => {
             setThrows2([...throws2, shot]);
         }
     }
-
+    function instantEnd(joueur) {
+        Alert.alert(joueur + " a gagné!");
+    }
     const addThrow = (points) => {
         if (points != 0 && points != 25 && points != 50) {
             Alert.alert(
@@ -93,63 +96,119 @@ const Game = ({route, navigation}) => {
         let thisScore;
         // thisScore = Test.test(points) * multiplier;
 
-        function instantEnd(Joueur) {
-            Alert.alert(Joueur + " a gagné!");
-            //navigation.navigate('Home'); //NE MARCHE PAS
-        }
-
-        
         switch (gamemode) {
             case '301' :
                 thisScore = points * multiplier;
+                //si thisScore est plus grand que le score du joueur, on n'update pas le score, on change de joueur
+                if (isScoreTooHigh(thisScore)) {
+                    thisScore = 0;
+                    forceChangePlayer();
+                }
                 break;
             case '501' :
                 thisScore = points * multiplier;
+
+                if (isScoreTooHigh(thisScore)) {
+                    thisScore = 0;
+                    forceChangePlayer();
+                }
                 break;
-            case '501-rumble' :
-                thisScore = points * multiplier;
+            case '501-sniper' :
+                
+                parseInt(thisScore);
+                parseInt(multiplier);
+                if(multiplier!==1){
+                    thisScore = parseInt(points * multiplier * 1.5); //on multiplie par 1.5 si le joueur a choisi un multiplicateur
+                }
+                else{thisScore = points * multiplier;}
+
+                if (isScoreTooHigh(thisScore)) {
+                    thisScore = 0;
+                    forceChangePlayer();
+                }
                 break;
-            case '501-party':  
+
+            case '501-party' :  
                 parseInt(thisScore);
                 switch(curentEvent){
-                    case 'doubling' :
+                    case "doubling" :
                         thisScore = points * multiplier * 2;
                         break;
-                    case 'halving' :
-                        thisScore = parseInt((points * multiplier)/2);
+                    case "halving" :
+                        thisScore = parseInt((points)/2) * multiplier;
                         break;
-                    case 'goldenCarrot' :
-                        if (points === goldenCarrot){
+                    case "goldenCarrot" :
+                        if (points === goldenCarrot){  //peu importe le multiplier 
                             instantEnd(players[actualPlayer]);
                         }
+                        else{if (isScoreTooHigh(thisScore)) {
+                            thisScore = 0;
+                            forceChangePlayer();
+                        }
+        
+                            thisScore = points * multiplier;
+                        }
                         break;
-                    case 'normal' :
+                    case "normal" :
                         thisScore = points * multiplier;
                         break;
                     }   
-            break;  
+                    if (isScoreTooHigh(thisScore)) {
+                        thisScore = 0;
+                        forceChangePlayer();
+                    }    
+            break; 
+    
             case '701' :
                 thisScore = points * multiplier;
+                if (isScoreTooHigh(thisScore)) {
+                    thisScore = 0;
+                    forceChangePlayer();
+                }
                 break;
-            case 'killer' :
-                thisScore = points * multiplier;
-                break;
+            case 'killer' : 
+            thisScore = points * multiplier;
+            if (isScoreTooHigh(thisScore)) {
+                thisScore = 0;
+                forceChangePlayer();
+            }
+            break;
         }
-
+        
         shotCounter();
         updateScore(thisScore);
         changePlayer();
         if (score1 === 0) {
-            instantEnd(players[Joueur1]);
+            instantEnd(players[0]);
         }
         if (score2 === 0) {
-            instantEnd(players[Joueur2]);
+            instantEnd(players[1]);
         }
     }
 
     const shotCounter = () => {
         setNumberShots(numberShots + 1);
+    }  
+
+    // on créé une fonction booléenne, qui va nous permettre de savoir si le joueur a fait un score trop élevé
+
+    const isScoreTooHigh = (thisScore) => {
+        if (actualPlayer === 0) {
+            return thisScore > score1;
+        } else {
+            return thisScore > score2;
+        }
     }
+
+    const forceChangePlayer = () => {
+        setNumberShots(0);
+        if (actualPlayer === 0) {
+            setActualPlayer(1);
+        } else {
+            setActualPlayer(0);
+        }
+    }
+
     const changePlayer = () => {
     
         if (numberShots === 2) {
@@ -160,45 +219,44 @@ const Game = ({route, navigation}) => {
                 setActualPlayer(0);
                 if(Math.random() <= 0.5){
                     if(gamemode ==='501-party'){
-                        if(Math.random() <= 0.475){ //47.5% de chance
+                        if(Math.random() <= 0.85){ //85% de chance
                             triggerEvent();
                         }
-                        if((Math.random() < 0.95)&&(Math.random() > 0.475)){ //47.5% de chance
-                            triggerNormal();
-                        }
-                        if(Math.random() >= 0.95){ //5% de chance
+                        else{
                             triggerGoldenCarrot();
                         }
-                        else{
-                            triggerNormal();
-                        }
-
                     }
                 }
             }
-        }}
-                
+        }
+    }
+
     function triggerEvent(){
+        gameStyles.goldenCarrot = {opacity: 0};
         if (Math.random() < 0.5) { 
             Alert.alert("Les Points sont doublés ce tour!");
             setCurentEvent("doubling");
         }
-        if ((Math.random() > 0.5) && (Math.random()< 1) ) {
+        if ((Math.random() > 0.5) && (Math.random() < 1)) {
             Alert.alert("Les Points sont divisées par 2 ce tour!");
             setCurentEvent("halving");
         }
     }
 
     function triggerNormal(){
+        gameStyles.goldenCarrot = {opacity: 0};
         setCurentEvent("normal");
     }
 
     function triggerGoldenCarrot(){
-        let goldenCarrot = Math.floor(Math.random() * 20) + 1;
         setCurentEvent("goldenCarrot");
-        Alert.alert("THE GOLDEN CARROT APPEARS! IF YOU HIT " + goldenCarrot+ "YOU WIN THE GAME!");  
+        gameStyles.goldenCarrot = {opacity: 1};
+        
+        Alert.alert("THE GOLDEN CARROT APPEARS! THE FIRST PLAYER TO HIT IT WINS THE GAME!");  //RAJOUTER LE FAIT DE LA MONTRER AU JPOUEUR EN DEHORS DU DEBUG SCREEN
     }
     const reset = () => {
+        gameStyles.goldenCarrot = {opacity: 0};
+        setCurentEvent("normal");
         setScore1(defaultScore);
         setScore2(defaultScore);
         setThrows1([]);
@@ -209,9 +267,10 @@ const Game = ({route, navigation}) => {
 
     return (
         <View style={gameStyles.container}>
+
             <View style={gameStyles.playerContainer}>
                 <View style={gameStyles.playerContainer1}>
-                    <Text style={gameStyles.score}>{curentEvent}</Text>
+                    
                     <Text style={gameStyles.text}>{players[0]}</Text>
                     <Text style={gameStyles.score}>{score1}</Text>
                     <Text style={gameStyles.arrayThrows}>{throws1.join(', ')}</Text>
@@ -221,6 +280,9 @@ const Game = ({route, navigation}) => {
                     <Text style={gameStyles.score}>{score2}</Text>
                     <Text style={gameStyles.arrayThrows}>{throws2.join(', ')}</Text>
                 </View>
+            </View>
+            <View style={gameStyles.goldenCarrotContainer}>
+            <Text style={gameStyles.goldenCarrot}>GoldenCarrot:   {goldenCarrot}</Text>          
             </View>
             <Text>C'est au tour du Joueur :</Text>
             <Text style={[gameStyles.text, gameStyles.marginBottom]}>{players[actualPlayer]}</Text>

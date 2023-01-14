@@ -6,17 +6,28 @@ export const gameStyles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '70%',
-        marginBottom: 30,
+        marginTop: -90,
+        marginBottom: 10,
     },
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },
+    goldenCarrotContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '8%',
+    },
     arrayThrows: {
         fontSize: 10,
     },
     text: {
+        fontSize: 20,
+    },
+    goldenCarrot: {
+        opacity: 0.0,
         fontSize: 20,
     },
     marginBottom: {
