@@ -8,7 +8,6 @@ export const gameStyles = StyleSheet.create({
         width: '70%',
         marginTop: -90,
         marginBottom: 10,
-        backgroundColor: 'green',
     },
     container: {
         flex: 1,

@@ -99,7 +99,23 @@ const Game = ({route, navigation}) => {
         switch (gamemode) {
             case '301' :
                 thisScore = points * multiplier;
+                //si thisScore est plus grand que le score du joueur, on n'update pas le score, on change de joueur
+               
+                if (actualPlayer === 0) {                       //bloc qui permet de vérifier si le joueur a fait un score trop élevé
+                    if (thisScore > score1) {
+                        thisScore = 0;
+                        changePlayer();
+                    } 
+                } else { if(actualPlayer === 1) {
+                    if (thisScore > score2) {
+                        thisScore = 0;
+                        changePlayer();
+                    }
+                }}
+
+                       
                 break;
+
             case '501' :
                 thisScore = points * multiplier;
                 break;
@@ -142,7 +158,7 @@ const Game = ({route, navigation}) => {
             thisScore = points * multiplier;
             break;
         }
-
+        
         shotCounter();
         updateScore(thisScore);
         changePlayer();
