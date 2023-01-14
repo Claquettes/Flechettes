@@ -100,32 +100,32 @@ const Game = ({route, navigation}) => {
             case '301' :
                 thisScore = points * multiplier;
                 //si thisScore est plus grand que le score du joueur, on n'update pas le score, on change de joueur
-               
-                if (actualPlayer === 0) {                       //bloc qui permet de vérifier si le joueur a fait un score trop élevé
-                    if (thisScore > score1) {
-                        thisScore = 0;
-                        changePlayer();
-                    } 
-                } else { if(actualPlayer === 1) {
-                    if (thisScore > score2) {
-                        thisScore = 0;
-                        changePlayer();
-                    }
-                }}
-
-                       
+                if (isScoreTooHigh(thisScore)) {
+                    thisScore = 0;
+                    forceChangePlayer();
+                }
                 break;
-
             case '501' :
                 thisScore = points * multiplier;
+
+                if (isScoreTooHigh(thisScore)) {
+                    thisScore = 0;
+                    forceChangePlayer();
+                }
                 break;
             case '501-sniper' :
+                
                 parseInt(thisScore);
                 parseInt(multiplier);
                 if(multiplier!==1){
                     thisScore = parseInt(points * multiplier * 1.5); //on multiplie par 1.5 si le joueur a choisi un multiplicateur
                 }
                 else{thisScore = points * multiplier;}
+
+                if (isScoreTooHigh(thisScore)) {
+                    thisScore = 0;
+                    forceChangePlayer();
+                }
                 break;
 
             case '501-party' :  
@@ -141,7 +141,11 @@ const Game = ({route, navigation}) => {
                         if (points === goldenCarrot){  //peu importe le multiplier 
                             instantEnd(players[actualPlayer]);
                         }
-                        else{
+                        else{if (isScoreTooHigh(thisScore)) {
+                            thisScore = 0;
+                            forceChangePlayer();
+                        }
+        
                             thisScore = points * multiplier;
                         }
                         break;
@@ -149,13 +153,25 @@ const Game = ({route, navigation}) => {
                         thisScore = points * multiplier;
                         break;
                     }   
+                    if (isScoreTooHigh(thisScore)) {
+                        thisScore = 0;
+                        forceChangePlayer();
+                    }    
             break; 
     
             case '701' :
                 thisScore = points * multiplier;
+                if (isScoreTooHigh(thisScore)) {
+                    thisScore = 0;
+                    forceChangePlayer();
+                }
                 break;
             case 'killer' : 
             thisScore = points * multiplier;
+            if (isScoreTooHigh(thisScore)) {
+                thisScore = 0;
+                forceChangePlayer();
+            }
             break;
         }
         
@@ -172,7 +188,27 @@ const Game = ({route, navigation}) => {
 
     const shotCounter = () => {
         setNumberShots(numberShots + 1);
-    } 
+    }  
+
+    // on créé une fonction booléenne, qui va nous permettre de savoir si le joueur a fait un score trop élevé
+
+    const isScoreTooHigh = (thisScore) => {
+        if (actualPlayer === 0) {
+            return thisScore > score1;
+        } else {
+            return thisScore > score2;
+        }
+    }
+
+    const forceChangePlayer = () => {
+        setNumberShots(0);
+        if (actualPlayer === 0) {
+            setActualPlayer(1);
+        } else {
+            setActualPlayer(0);
+        }
+    }
+
     const changePlayer = () => {
     
         if (numberShots === 2) {
@@ -192,7 +228,8 @@ const Game = ({route, navigation}) => {
                     }
                 }
             }
-        }}
+        }
+    }
 
     function triggerEvent(){
         gameStyles.goldenCarrot = {opacity: 0};
