@@ -1,42 +1,36 @@
-import {View, Text, TouchableOpacity} from 'react-native';
-import {AsyncStorage} from '@react-native-async-storage/async-storage';
+import { View, Text, StyleSheet, Button, Alert, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {styles} from "./styles/MainStylesheet";
+import {storeData, getData, displayData, eraseData} from "./functions/DatabaseManagement";
+
 const ManagePlayers = ({navigation}) => {
 
-    const storeData = async (value) => {
-        try {
-          const jsonValue = JSON.stringify(value)
-          await AsyncStorage.setItem('players', jsonValue)
-        } catch (e) {
-          // saving error
-        }
+  const [players, setPlayers] = useState([]);
+   
+  const updatePlayers = async () => {
+    let data = await getData();
+    let players = [];
+    for (let i = 0; i < data.length; i++) {
+      players.push (data[i].name);
     }
+    setPlayers(players);
+  }
 
-    const getData = async () => {
-        try {
-          const jsonValue = await AsyncStorage.getItem('players')
-          console.log(await jsonValue); 
-          return jsonValue != null ? JSON.parse(jsonValue) : null;
-        } catch(e) {
-          // error reading value
-        }
-      }
-    
-      let obj = {  
-        name: 'Michal',  
-        email: 'michal@gmail.com',  
-        city: 'New York',  
-      }
+  updatePlayers();
 
-      storeData(obj);
-      console.log(getData())
-    
-    return (
-        <View style={styles.containerMain}>
-            <Text style={styles.text}>Mathieu</Text>
-            <Text style={styles.text}>Maxime</Text>
-        </View>
+  return (
+    <View style={styles.containerMain}>
+      <View>
+        {players.map(function(player){
+          return <Text key={player} style={[styles.text, styles.marginBottom]}>{player}</Text>;
+        })}
+      </View>
+      <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('AddPlayer')}>
+          <Text style={[styles.textBig, styles.textWhite]}>New Player</Text>
+      </TouchableOpacity>
+    </View>
     );
-}
+  }
 
 export default ManagePlayers;

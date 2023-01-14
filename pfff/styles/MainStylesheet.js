@@ -28,4 +28,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 16,
     },
+    marginBottom: {
+        marginBottom: 12,
+    }
  });

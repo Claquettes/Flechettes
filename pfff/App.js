@@ -1,10 +1,11 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {styles} from "./styles/MainStylesheet";
 import GameModes from "./GameModes";
 import Game from "./Game";
 import ManagePlayers from "./ManagePlayers";
+import AddPlayer from "./AddPlayer";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ const App = () => {
                 <Stack.Screen name="GameModes" component={GameModes} />
                 <Stack.Screen name="Game" component={Game} /> 
                 <Stack.Screen name="ManagePlayers" component={ManagePlayers} options={{title: 'Manage Players'}}/> 
+                <Stack.Screen name="AddPlayer" component={AddPlayer} options={{title: 'New Player'}}/> 
             </Stack.Navigator>
         </NavigationContainer>
     );
