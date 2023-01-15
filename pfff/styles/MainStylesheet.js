@@ -30,5 +30,23 @@ export const styles = StyleSheet.create({
     },
     marginBottom: {
         marginBottom: 12,
+    },
+    marginBottomSmall: {
+        marginBottom: 4,
+    },
+    marginTop: {
+        marginTop: 12,
+    },
+    textInput: {
+        fontSize: 18,
+        height: 56,
+        width: '100%',
+        backgroundColor: '#fff',
+        padding: 14,
+        marginHorizontal: 0,
+        marginTop: 8,
+        marginBottom: 16,
+        borderRadius: 16,
+
     }
  });

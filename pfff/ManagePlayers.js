@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Button, Alert, TouchableOpacity } from 'react-n
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {styles} from "./styles/MainStylesheet";
+import {profileStyles} from "./styles/ProfilesStylesheet";
 import {storeData, getData, displayData, eraseData} from "./functions/DatabaseManagement";
 
 const ManagePlayers = ({navigation}) => {
@@ -23,10 +24,10 @@ const ManagePlayers = ({navigation}) => {
     <View style={styles.containerMain}>
       <View>
         {players.map(function(player){
-          return <Text key={player} style={[styles.text, styles.marginBottom]}>{player}</Text>;
+          return <TouchableOpacity key={"btn-" + player} style={profileStyles.overviewProfile} onPress={() => navigation.navigate('Profile', {playerName: player})}><Text key={player} style={[styles.textMedium, styles.textWhite]}>{player}</Text></TouchableOpacity>;
         })}
       </View>
-      <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('AddPlayer')}>
+      <TouchableOpacity style={[styles.buttonPrimary, styles.marginTop]} onPress={() => navigation.navigate('AddPlayer')}>
           <Text style={[styles.textBig, styles.textWhite]}>New Player</Text>
       </TouchableOpacity>
     </View>

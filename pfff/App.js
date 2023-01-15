@@ -6,6 +6,7 @@ import GameModes from "./GameModes";
 import Game from "./Game";
 import ManagePlayers from "./ManagePlayers";
 import AddPlayer from "./AddPlayer";
+import Profile from "./Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ const App = () => {
                 <Stack.Screen name="GameModes" component={GameModes} />
                 <Stack.Screen name="Game" component={Game} /> 
                 <Stack.Screen name="ManagePlayers" component={ManagePlayers} options={{title: 'Manage Players'}}/> 
+                <Stack.Screen name="Profile" component={Profile} options={{title: 'Profile'}}/> 
                 <Stack.Screen name="AddPlayer" component={AddPlayer} options={{title: 'New Player'}}/> 
             </Stack.Navigator>
         </NavigationContainer>
