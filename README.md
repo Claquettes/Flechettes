@@ -1,5 +1,5 @@
 ## About The Project
-This application was created by Maxime Antoine, Guillaume 'FlashOnFire' and Mathieu 'Claquettes' Ponton, based on an idea from Maxime Antoine and Mathieu 'Claquettes'.
+This application was created by Maxime Antoine, Guillaume 'FlashOnFire' and Mathieu Ponton, based on an idea from Maxime Antoine and Mathieu 'Claquettes'.
 Demo by Maxime Antoine using Adobe XD.
 
 ### Gamemodes Led by Mathieu 'Claquettes'
